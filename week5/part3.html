@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile Page</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-image: url('background.jpg');
+            background-size: fill;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        h1 {
+            color: #ffffff;
+            font-family: 'Times New Roman', Times, serif; 
+        }
+
+        h2 {
+            font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', 'sans-serif';
+        }     
+
+        #personal-info-box {
+            border: 2px solid #333;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            background-color: peachpuff; 
+            width: 70%;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        #button-container {
+            display: flex;
+            justify-content: flex-end;
+            margin: 10px;
+            width: 100%; 
+        }
+
+        .button {
+            margin-left: 10px;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        #nameDisplay {
+            display: none;
+            font-size: 2em;
+            font-weight: bold;
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ffffff;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        #timeDisplay {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #ffffff;
+        }
+
+        #pstButton {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            font-size: 2em;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 10px;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div id="button-container">
+        <a href="index.html">
+            <button class="button">Home</button>
+        </a>
+
+        <a href="https://www.facebook.com/kyut.ni.mers/" target="_blank">
+            <button class="button">Facebook Page</button>
+        </a>
+        
+        <a href="games.html">
+            <button class="button">Games</button>
+        </a>
+        
+        <a href="server.html">
+            <button class="button">Public Server</button>
+        </a>
+        
+        <a href="contact.html">
+            <button class="button">About Me</button>
+        </a>
+        
+        <a href="part3.html">
+            <button class="button">JavaScript Course Part 3</button>
+
+        </a>
+    </div>
+    
+
+    <h1>Hover to view Visitor Name</h1>
+    <span id="nameDisplay"></span>
+
+    <div id="timeDisplay"></div>
+
+    <!-- Display current time in PST -->
+    <div id="pstTimeDisplay" style="font-size: 2em; color: #ffffff; margin: 20px;">
+        <button id="pstButton" class="button" onclick="updatePSTDisplay()">PST Time</button>
+    </div>
+
+
+    <script>
+        var userName = getCookie("userName");
+
+        if (!userName) {
+            userName = prompt("Please enter your name:");
+            setCookie("userName", userName, 365);
+        }
+
+        var nameDisplay = document.getElementById('nameDisplay');
+        nameDisplay.textContent = 'Welcome, ' + userName;
+        nameDisplay.style.display = 'block';
+
+        document.querySelector('h1').addEventListener('mouseover', function() {
+            nameDisplay.style.display = 'block';
+        });
+
+        document.querySelector('h1').addEventListener('mouseout', function() {
+            nameDisplay.style.display = 'none';
+        });
+
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + value + expires + "; path=/";
+        }
+
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        // Update time display in GMT+8:00
+        function updateTimeDisplay() {
+            var timeDisplay = document.getElementById('timeDisplay');
+            timeDisplay.textContent = 'Current Time (GMT+8:00): ' + getCurrentTime();
+        }
+
+        // Call updateTimeDisplay every second
+        setInterval(updateTimeDisplay, 1000);
+
+        // Function to get current time in Philippine Standard Time (PST)
+        function getPHTime() {
+            var now = new Date();
+            var pstTime = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Manila' }));
+            return pstTime.toLocaleTimeString();
+        }
+
+        // Update PST time display
+        function updatePSTDisplay() {
+            var pstTimeDisplay = document.getElementById('pstTimeDisplay');
+            pstTimeDisplay.textContent = 'Current Time (PST): ' + getPHTime();
+        }
+
+        // Call updatePSTDisplay every second
+        setInterval(updatePSTDisplay, 1000);
+        
+    </script>
+
+</body>
+</html>
