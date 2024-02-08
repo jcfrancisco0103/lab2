@@ -101,10 +101,23 @@ echo $gender;
 ?>
 
 <?php
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") 
+{
+
+// For Xampp Localhost
+//$servername = "localhost";
+//$username = "root";
+//$password = "";
+//$dbname = "myDB";
+
+// For socitcloud
 $servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "myDB";
+$username = "webprogmi221";
+$password = "g_6bCitLu.ljMK*m";
+$dbname = "webprogmi221";
+
+
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -113,8 +126,8 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "INSERT INTO MyGuests (firstname, lastname, email)
-VALUES ('$name', '$website', '$email')";
+$sql = "INSERT INTO jlquesada_myguests (name, email,website,comment,gender)
+VALUES ('$name', '$email','$website','$comment','$gender')";
 
 if ($conn->query($sql) === TRUE) {
   echo "New record created successfully";
@@ -123,6 +136,7 @@ if ($conn->query($sql) === TRUE) {
 }
 
 $conn->close();
+}
 ?>
 
 
