@@ -1,33 +1,33 @@
 <?php
-// $servername = "localhost";
-// $username = "root";
-// $password = "";
-// $dbname = "myDB";
+// Xampp localhost config
+//$servername = "localhost";
+//$username = "root";
+//$password = "";
+//$dbname = "myDB";
 
-// For socitcloud
+//apcwebprog config
 $servername = "localhost";
-$username = "webprogmi221";
-$password = "g_6bCitLu.ljMK*m";
-$dbname = "webprogmi221";
+$username = "webprogss221";
+$password = "=latHen97";
+$dbname = "webprogss221";
 
 // Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
-if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT id, firstname, lastname FROM jcfrancisco_myguests";
-$result = mysqli_query($conn, $sql);
+$sql = "SELECT id, name, email, website, comment, gender FROM jcfrancisco_myguests";
+$result = $conn->query($sql);
 
-if (mysqli_num_rows($result) > 0) {
+if ($result->num_rows > 0) {
   // output data of each row
-  while($row = mysqli_fetch_assoc($result)) {
-    echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["lastname"]. "<br>";
+  while($row = $result->fetch_assoc()) {
+    echo "id: " . $row["id"]. " - Name: " . $row["name"]. " ". $row["email"]. " " . $row["website"]. $row["comment"]. $row["gender"]. "      " . "<br>";
   }
 } else {
   echo "0 results";
 }
-
-mysqli_close($conn);
+$conn->close();
 ?>
