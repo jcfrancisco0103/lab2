@@ -4,6 +4,12 @@ $username = "root";
 $password = "";
 $dbname = "myDB";
 
+// For socitcloud
+$servername = "localhost";
+$username = "webprogmi221";
+$password = "g_6bCitLu.ljMK*m";
+$dbname = "webprogmi221";
+
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 // Check connection
