@@ -1,8 +1,8 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "myDB";
+// $servername = "localhost";
+// $username = "root";
+// $password = "";
+// $dbname = "myDB";
 
 // For socitcloud
 $servername = "localhost";
